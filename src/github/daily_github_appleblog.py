@@ -9,7 +9,7 @@ import yaml
 from dotenv import load_dotenv
 import asyncio
 from bloghelper import EnhancedBlogGenerator
-
+from default_image import preparedefaultimage
 # Load environment variables from .env file
 load_dotenv()
 print('Script started')
@@ -67,7 +67,7 @@ IMAGE_API_KEY = os.getenv("IMAGE_API_KEY", "your_image_api_key_here")
 print('your IMAGE_API_KEY', IMAGE_API_KEY)
 
 import re
-
+defaultimages=preparedefaultimage()
 def replace_non_word_characters(input_list):
     # This function takes a list of strings and replaces non-word characters with '-'
     converted_list = []
@@ -257,16 +257,14 @@ def call_image_endpoint_local(api_url, api_key, prompt, size="1024x1024", n=1):
             image_name = f"{prompt[:10]}.png"  # Save with a short name based on prompt
             # image_path = save_image_locally(image_data.encode(), image_name)
             # if local save  
-            #image_url=domain+assets_read_folder+image_name
-            image_url = BASE_URL + IMAGE_FOLDER + "/" + image_name  # URL to access the image
+            image_url=domain+assets_read_folder+image_name
+            # image_url = BASE_URL + IMAGE_FOLDER + "/" + image_name  # URL to access the image
             return image_url
         else:
             print("No image data received.")
     else:
         print(f"Failed to generate cover image: {response.status_code}")
     return None
-import requests
-import os
 
 def save_image_from_url(image_url, local_file_path):
     # Send a GET request to the image URL
@@ -311,7 +309,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
         ],
         "stream": False
     }
-
+    image_url=None
     try:
         response = requests.post(api_url, json=payload, headers=headers)
         
@@ -327,16 +325,15 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
 			
                     image_url=domain+assets_read_folder+image_name
 			
-                    return image_url
                 except:
-                    return None
-            return None
+                    image_name=random.choice(defaultimages)
         else:
             print("error:\n", response.status_code, "message:\n", response.text)
-            return None  # Error handling
     except Exception as e:
-        return None
-
+        print('error image creation',e)
+    if image_url is None:
+        image_name=random.choice(defaultimages)
+        image_url=domain+assets_read_folder+image_name
 def generate_blog(repo_name, repo_description, readme_content, username=None, current_date=None,assets_read_folder=None,assets_save_folder=None):
     if current_date is None:
         current_date = datetime.datetime.now().strftime('%Y%m%d %H%M%S')
