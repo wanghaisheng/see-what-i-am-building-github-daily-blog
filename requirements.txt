@@ -17,3 +17,6 @@ matplotlib
 seaborn
 pandas
 mplcyberpunk
+DrissionPage 
+DataRecorder 
+pandas
