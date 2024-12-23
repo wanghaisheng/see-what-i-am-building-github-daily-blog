@@ -29,6 +29,7 @@ days_threshold = config.get("days_threshold", 1)
 
 assets_save_folder = config.get("assets_save_folder", '')
 assets_read_folder = config.get("assets_read_folder", '')
+domain = config.get("domain", '')
 
 
 api_url = config.get('OPENAI_API_URL', 'https://heisenberg-duckduckgo-66.deno.dev/v1/chat/completions')
@@ -264,6 +265,23 @@ def call_image_endpoint_local(api_url, api_key, prompt, size="1024x1024", n=1):
     else:
         print(f"Failed to generate cover image: {response.status_code}")
     return None
+import requests
+import os
+
+def save_image_from_url(image_url, local_file_path):
+    # Send a GET request to the image URL
+    response = requests.get(image_url)
+    
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Open a local file in binary write mode
+        with open(local_file_path, 'wb') as file:
+            # Write the content of the response (the image) to the file
+            file.write(response.content)
+        print(f"Image saved successfully to {local_file_path}")
+    else:
+        print(f"Failed to retrieve image. Status code: {response.status_code}")
+
 
 def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
     """
@@ -303,7 +321,13 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
                 try:
                     url = data['choices'][0]['message']['url']
                     print('create image', url)
-                    return url
+		    image_name=url.split('/')[-1]+'.png'
+		    local_file_path=os.path.join(assets_save_folder,image_name)		
+		    save_image_from_url(url, local_file_path)
+			
+	            image_url=domain+assets_read_folder+image_name
+			
+                    return image_url
                 except:
                     return None
             return None
@@ -541,7 +565,7 @@ async def main():
         # Get the username from config
         username = config.get("username", "default_username")
         print('start to detect all repos')
-        repos = get_repositories(username)[:500]
+        repos = get_repositories(username)[:20]
         if not repos:
             print("No repositories found or failed to fetch repositories.")
             return
