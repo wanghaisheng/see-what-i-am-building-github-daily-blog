@@ -1,4 +1,12 @@
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from utils.getbrowser import setup_chrome
+
+# Your code here
 from datetime import datetime
 from bs4 import BeautifulSoup
 browser=setup_chrome()
