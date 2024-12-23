@@ -321,11 +321,11 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
                 try:
                     url = data['choices'][0]['message']['url']
                     print('create image', url)
-		    image_name=url.split('/')[-1]+'.png'
-		    local_file_path=os.path.join(assets_save_folder,image_name)		
-		    save_image_from_url(url, local_file_path)
+                    image_name=url.split('/')[-1]+'.png'
+                    local_file_path=os.path.join(assets_save_folder,image_name)		
+                    save_image_from_url(url, local_file_path)
 			
-	            image_url=domain+assets_read_folder+image_name
+                    image_url=domain+assets_read_folder+image_name
 			
                     return image_url
                 except:
