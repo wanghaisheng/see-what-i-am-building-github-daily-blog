@@ -15,6 +15,7 @@ def download_image(url):
     urllist = []
 
     tab=browser.new_tab()
+    tab.get(url)
     images=tab.ele('#pageScroll').eles('tag:a')
     for i in images:
         src=i.attr('style').split('url(&quot;)')[-1].split('&quot')[0]
