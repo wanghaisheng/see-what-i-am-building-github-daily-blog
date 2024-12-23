@@ -9,7 +9,7 @@ author_list:
 
 # Output folder for generated markdown files
 output_folder: "themes/appleblog/src/pages/posts"
-
+domain: "https://daily.borninsea.com"
 tag_file_path: "themes/appleblog/src/data/tags.json"
 
 
