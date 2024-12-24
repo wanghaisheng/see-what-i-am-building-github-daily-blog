@@ -5,6 +5,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from utils.getbrowser import setup_chrome
+from CloudflareBypasser import CloudflareBypasser
 
 # Your code here
 from datetime import datetime
@@ -16,6 +17,11 @@ def download_image(url):
 
     tab=browser.new_tab()
     tab.get(url)
+
+    cf_bypasser = CloudflareBypasser(tab)
+    cf_bypasser.bypass()
+
+
     images=tab.ele('#pageScroll').eles('tag:a')
     for i in images:
         src=i.attr('style').split('url(&quot;)')[-1].split('&quot')[0]
