@@ -9,8 +9,8 @@ import yaml
 from dotenv import load_dotenv
 import asyncio
 from bloghelper import EnhancedBlogGenerator
-# from default_image_requests import preparedefaultimage
-from default_image import preparedefaultimage
+from default_image_requests import preparedefaultimage
+# from default_image import preparedefaultimage
 
 # Load environment variables from .env file
 load_dotenv()
