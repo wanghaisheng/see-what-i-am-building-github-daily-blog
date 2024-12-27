@@ -5,21 +5,23 @@ from bs4 import BeautifulSoup
 def get_image_urls(url):
 
     urllist = []
-
-    headers = {'User-Agent': 'curl/7.84.0'}
-    page = requests.get(url, headers=headers, allow_redirects=True)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    body = soup.find("body")
-    sc = list(body.find_all("script"))[-1].string
-    sc = str(sc)
-    print(soup)
-    script = soup.find('script', {'id': '__NEXT_DATA__'})
-    sc = script.contents[0]    
-    print(sc)
+    try:
+        headers = {'User-Agent': 'curl/7.84.0'}
+        page = requests.get(url, headers=headers, allow_redirects=True)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        body = soup.find("body")
+        sc = list(body.find_all("script"))[-1].string
+        sc = str(sc)
+        print(soup)
+        script = soup.find('script', {'id': '__NEXT_DATA__'})
+        sc = script.contents[0]    
+        print(sc)
     # parse JSON
-    sc = json.loads(sc).get("props").get("pageProps").get("jobs")
-    for i in sc:
-        urllist.append(i.get("event").get("seedImageURL"))
+        sc = json.loads(sc).get("props").get("pageProps").get("jobs")
+        for i in sc:
+            urllist.append(i.get("event").get("seedImageURL"))
+    except Exception as e:
+        print('get url error',e)
     return urllist
 
 def download_image(urllist):
