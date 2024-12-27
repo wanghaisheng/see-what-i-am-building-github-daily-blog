@@ -51,7 +51,7 @@ def download_image(urllist):
             f.write(page.content)
         i+=1
         print(f"Downloaded {i}.png")
-        filenames.append(i+'.png')
+        filenames.append(filename)
     return filenames
 def preparedefaultimage():
     url = 'https://www.midjourney.com/showcase/recents'
