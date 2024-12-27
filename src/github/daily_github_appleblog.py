@@ -126,8 +126,11 @@ def get_readme_content(owner, repo):
 
 def openai_api_call(prompt,model='gpt-4o-mini'):
     # Set the endpoint URL and headers
-    url='https://heisenberg-duckduckgo-66.deno.dev/v1/chat/completions'
-
+    urls =[
+    "https://heisenberg-duckduckgo-12.deno.dev/v1/chat/completions",
+    "https://heisenberg-duckduckgo-66.deno.dev/v1/chat/completions",
+    "https://heisenberg-duckduckgo-38.deno.dev/v1/chat/completions"
+    ]
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
@@ -136,26 +139,29 @@ def openai_api_call(prompt,model='gpt-4o-mini'):
     # Define the data payload
 	# Modified
     data = {"model":api_model, "messages": [{"role": "user", "content": prompt}]}
+    for attempt in range(retries):
+        url=urls[attempt]
 
-    # Make the request
-    response = requests.post(url, headers=headers, json=data)
+	try:
+	    response = requests.post(url, headers=headers, json=data)
 
     # Check for a successful response
-    if response.status_code == 200:
-        try:
-            data = response.json()
+	    if response.status_code == 200:
+	            data = response.json()
+	
+	            result = data['choices'][0]['message']['content']
 
-            result = data['choices'][0]['message']['content']
+	            return result
+	    else:
+                print(f"Request {url} failed with status code  {response.status_code}: {response.text}")
+		    
+	except Exception as e:
+	    print("Error call openai api endpoint",e)
 
-            return result
-        except Exception as e:
-            print("Error call openai api endpoint",e)
-            return None
 
-
-    else:
-        # return {"error": response.status_code, "message": response.text}
-        return None
+        if attempt < retries - 1:
+            print(f"Retrying in {delay} seconds...")
+            time.sleep(delay)
 
 def siliconflow(text,token, model='Qwen2.5'):
 
