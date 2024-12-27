@@ -34,7 +34,7 @@ def download_image(urllist):
     filenames=[]
     for url in urllist:
         page = requests.get(url, headers=headers, allow_redirects=True)
-        with open("themes/appleblog/public/assets/"+str(i) + ".png", 'wb') as f:
+        with open("./themes/appleblog/public/assets/"+str(i) + ".png", 'wb') as f:
             f.write(page.content)
         i+=1
         print(f"Downloaded {i}.png")
