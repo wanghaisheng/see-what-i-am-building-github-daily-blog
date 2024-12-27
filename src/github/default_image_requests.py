@@ -37,7 +37,7 @@ def download_image(urllist):
     for url in urllist:
         page = requests.get(url, headers=headers, allow_redirects=True)
 
-        relative_path="themes/appleblog/public/assets/"
+        relative_path="../../themes/appleblog/public/assets/"
         
 
         directory = os.path.join(project_root, relative_path)
