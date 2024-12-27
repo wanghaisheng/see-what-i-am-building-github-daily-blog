@@ -32,9 +32,22 @@ def download_image(urllist):
     headers = {'User-Agent': 'curl/7.84.0'}
     i = 1
     filenames=[]
+    project_root = os.path.abspath(os.path.dirname(__file__))
+    
     for url in urllist:
         page = requests.get(url, headers=headers, allow_redirects=True)
-        with open("./themes/appleblog/public/assets/"+str(i) + ".png", 'wb') as f:
+
+        relative_path="themes/appleblog/public/assets/"
+        
+
+        directory = os.path.join(project_root, relative_path)
+        filename= str(i) + ".png"
+
+
+        if '.' in url:
+            filename =url.split('/')[-1]
+        filepath = os.path.join(directory, filename)
+        with open(filepath, 'wb') as f:
             f.write(page.content)
         i+=1
         print(f"Downloaded {i}.png")
