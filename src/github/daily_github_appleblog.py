@@ -35,6 +35,8 @@ theme = config.get("blogtheme", "appleblog")
 days_threshold = config.get("days_threshold", 1)
 
 assets_save_folder = config.get("assets_save_folder", "")
+assets_save_folder = os.path.join(project_root, assets_save_folder)
+
 assets_read_folder = config.get("assets_read_folder", "")
 domain = config.get("domain", "")
 
@@ -48,9 +50,12 @@ api_model = config.get("api_model", "gpt-4o-mini")
 api_key = os.getenv("OPENAI_API_KEY", "your_self_openai_api_access_token_here")
 
 TAGS_SERVER_DIR_STORAG = config.get("tag_file_path", "")
+TAGS_SERVER_DIR_STORAG = os.path.join(project_root, TAGS_SERVER_DIR_STORAG)
 
 DEFAULT_AUTHOR_LIST = config.get("author_list", ["unknown"])
 OUTPUT_FOLDER = config.get("output_folder", "markdown_files")
+OUTPUT_FOLDER = os.path.join(project_root, OUTPUT_FOLDER)
+
 IMAGE_FOLDER = config.get(
     "image_folder", "generated_images"
 )  # Image folder to save images
@@ -413,7 +418,6 @@ def generate_blog(
 def update_apple_blog_tags_json(tags):
     new = {}
     # tags=replace_non_word_characters(tags)
-    TAGS_SERVER_DIR_STORAG = os.path.join(project_root, TAGS_SERVER_DIR_STORAG)
 
     if os.path.exists(TAGS_SERVER_DIR_STORAG):
         print("overwrite old tags.json")
@@ -545,7 +549,6 @@ def create_all_markdown_files(repos, username, chat, days_threshold=30):
 """
 
         # Save to .md file in the output folder
-        OUTPUT_FOLDER = os.path.join(project_root, OUTPUT_FOLDER)
         
         filename = os.path.join(OUTPUT_FOLDER, f"{repo_name}.md")
         with open(filename, "w", encoding="utf-8") as file:
@@ -570,7 +573,6 @@ async def create_new_markdown_files(repos, username, days_threshold=1):
         forks_count = repo["forks_count"]
         description = repo["description"] or "No description provided."
         is_forked = repo["fork"]
-        OUTPUT_FOLDER = os.path.join(project_root, OUTPUT_FOLDER)
 
         # Check if markdown file already exists for this repository
         md_filename = os.path.join(OUTPUT_FOLDER, f"{repo_name}.md")
