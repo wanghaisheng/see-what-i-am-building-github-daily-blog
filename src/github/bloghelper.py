@@ -17,6 +17,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 logging.basicConfig(level=logging.DEBUG)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, "../../"))
 
 class EnhancedBlogGenerator:
     def __init__(self, current_date: str, username: str, 
@@ -511,6 +513,8 @@ Base it on this README:
 {reading_time}  read
 """+blog_content
         # Generate all visualizations
+        assets_save_folder = os.path.join(project_root, assets_save_folder)
+
         heatmap_path = self.generate_commit_heatmap(commits, repo_name, assets_save_folder, assets_read_folder)
         network_path = self.generate_contribution_network(commits, repo_name, assets_save_folder, assets_read_folder)
         activity_path = self.generate_commit_activity_chart(commits, repo_name, assets_save_folder, assets_read_folder)
