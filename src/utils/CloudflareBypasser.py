@@ -1,9 +1,9 @@
 import time
-from DrissionPage import ChromiumPage
+from DrissionPage import Chromium
 
 
 class CloudflareBypasser:
-    def __init__(self, driver: ChromiumPage, max_retries=-1, log=True):
+    def __init__(self, driver: Chromium, max_retries=-1, log=True):
         self.driver = driver
         self.max_retries = max_retries
         self.log = log
