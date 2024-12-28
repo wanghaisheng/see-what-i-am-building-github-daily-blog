@@ -352,7 +352,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
     image_url = None
     try:
         response = requests.post(api_url, json=payload, headers=headers)
-
+        print('start to gen cover image for post')
         if response.status_code == 200:
             data = response.json()
             if data:
@@ -365,6 +365,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
                     local_file_path = os.path.join(
                         assets_save_folder, image_name
                     )
+                    print('start to save cover image',local_file_path)
                     save_image_from_url(url, local_file_path)
 
                     image_url = domain + assets_read_folder + image_name
