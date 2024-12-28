@@ -143,7 +143,7 @@ def get_readme_content(owner, repo):
     return None
 
 
-def openai_api_call(api_key, prompt, model="gpt-4o-mini", retries=3, delay=5):
+def openai_api_call( prompt, model="gpt-4o-mini", retries=3, delay=5):
     # Set the endpoint URL and headers
     urls = [
         "https://heisenberg-duckduckgo-12.deno.dev/v1/chat/completions",
