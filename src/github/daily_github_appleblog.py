@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 import asyncio
 from bloghelper import EnhancedBlogGenerator
 from default_image_requests import preparedefaultimage
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, "../../"))
 
 # from default_image import preparedefaultimage
 
@@ -353,6 +355,8 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
                     url = data["choices"][0]["message"]["url"]
                     print("create image", url)
                     image_name = url.split("/")[-1] + ".png"
+                    assets_save_folder = os.path.join(project_root, assets_save_folder)
+
                     local_file_path = os.path.join(
                         assets_save_folder, image_name
                     )
@@ -409,10 +413,10 @@ def generate_blog(
 def update_apple_blog_tags_json(tags):
     new = {}
     # tags=replace_non_word_characters(tags)
+    TAGS_SERVER_DIR_STORAG = os.path.join(project_root, TAGS_SERVER_DIR_STORAG)
 
     if os.path.exists(TAGS_SERVER_DIR_STORAG):
         print("overwrite old tags.json")
-        # os.makedirs(os.path.dirname(TAGS_SERVER_DIR_STORAG), exist_ok=True)
         new = []
         try:
             old = json.load(open(TAGS_SERVER_DIR_STORAG), encoding="utf8").get(
@@ -541,6 +545,8 @@ def create_all_markdown_files(repos, username, chat, days_threshold=30):
 """
 
         # Save to .md file in the output folder
+        OUTPUT_FOLDER = os.path.join(project_root, OUTPUT_FOLDER)
+        
         filename = os.path.join(OUTPUT_FOLDER, f"{repo_name}.md")
         with open(filename, "w", encoding="utf-8") as file:
             file.write(md_content)
@@ -564,6 +570,7 @@ async def create_new_markdown_files(repos, username, days_threshold=1):
         forks_count = repo["forks_count"]
         description = repo["description"] or "No description provided."
         is_forked = repo["fork"]
+        OUTPUT_FOLDER = os.path.join(project_root, OUTPUT_FOLDER)
 
         # Check if markdown file already exists for this repository
         md_filename = os.path.join(OUTPUT_FOLDER, f"{repo_name}.md")
