@@ -513,7 +513,6 @@ Base it on this README:
 {reading_time}  read
 """+blog_content
         # Generate all visualizations
-        assets_save_folder = os.path.join(project_root, assets_save_folder)
 
         heatmap_path = self.generate_commit_heatmap(commits, repo_name, assets_save_folder, assets_read_folder)
         network_path = self.generate_contribution_network(commits, repo_name, assets_save_folder, assets_read_folder)
