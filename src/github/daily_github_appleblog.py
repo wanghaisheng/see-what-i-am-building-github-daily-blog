@@ -38,10 +38,11 @@ days_threshold = config.get("days_threshold", 1)
 
 assets_save_folder = config.get("assets_save_folder", "")
 assets_save_folder = os.path.join(project_root, assets_save_folder)
-
+config.set('assets_save_folder',assets_save_folder)
 assets_read_folder = config.get("assets_read_folder", "")
 assets_read_folder = domain + assets_read_folder 
 
+config.set('assets_read_folder',assets_read_folder)
 
 
 api_url = config.get(
