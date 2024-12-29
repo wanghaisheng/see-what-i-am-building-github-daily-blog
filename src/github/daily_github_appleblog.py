@@ -45,7 +45,7 @@ assets_read_folder = domain + assets_read_folder
 config['assets_read_folder']=assets_read_folder
 
 
-api_url = get(
+api_url = config.get(
     "OPENAI_API_URL",
     "https://heisenberg-duckduckgo-66.deno.dev/v1/chat/completions",
 )
