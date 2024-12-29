@@ -352,6 +352,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
         "stream": False,
     }
     image_url = None
+    print('start to call flux api',prompt)
     try:
         response = requests.post(api_url, json=payload, headers=headers)
         print('start to gen cover image for post')
@@ -382,6 +383,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
         image_name = random.choice(defaultimages)
         # image_url = domain + assets_read_folder + image_name
         image_url=image_name
+        print('use default image from midjourney')
     return  image_url
 
 
