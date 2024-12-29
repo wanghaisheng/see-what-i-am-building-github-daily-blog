@@ -7,6 +7,7 @@ import random
 import yaml
 from dotenv import load_dotenv
 import asyncio
+import pandas as pd
 from bloghelper import EnhancedBlogGenerator
 # from default_image_requests import preparedefaultimage
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -88,8 +89,9 @@ IMAGE_API_KEY = os.getenv("IMAGE_API_KEY", "your_image_api_key_here")
 print("your IMAGE_API_KEY", IMAGE_API_KEY)
 
 import re
+df=pd.read_csv('./imageurls.csv')
 
-defaultimages = preparedefaultimage()
+defaultimages = df['url'].to_list()
 
 
 def replace_non_word_characters(input_list):
@@ -378,7 +380,8 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
         print("error image creation", e)
     if image_url is None:
         image_name = random.choice(defaultimages)
-        image_url = domain + assets_read_folder + image_name
+        # image_url = domain + assets_read_folder + image_name
+        image_url=image_name
 
 
 def generate_blog(
