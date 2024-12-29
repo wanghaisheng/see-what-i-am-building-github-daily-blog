@@ -45,7 +45,7 @@ assets_read_folder = domain + assets_read_folder
 config['assets_read_folder']=assets_read_folder
 
 
-api_url = config.get(
+api_url = get(
     "OPENAI_API_URL",
     "https://heisenberg-duckduckgo-66.deno.dev/v1/chat/completions",
 )
@@ -366,7 +366,7 @@ def call_image_endpoint(api_url, api_key, prompt, config,size="1024x1024", n=1):
                     url = data["choices"][0]["message"]["url"]
                     print("create image", url)
                     image_name = url.split("/")[-1] + ".png"
-                    assets_save_folder = os.path.join(project_root, config.assets_save_folder)
+                    assets_save_folder = os.path.join(project_root, config.get('assets_save_folder'))
 
                     local_file_path = os.path.join(
                         assets_save_folder, image_name
@@ -374,7 +374,7 @@ def call_image_endpoint(api_url, api_key, prompt, config,size="1024x1024", n=1):
                     print('start to save cover image',local_file_path)
                     save_image_from_url(url, local_file_path)
 
-                    image_url = config.assets_read_folder + image_name
+                    image_url = config.get('assets_read_folder') + image_name
 
                 except Exception as e:
                     print('save cover image error',e)
@@ -506,8 +506,8 @@ def create_all_markdown_files(repos, username, chat,config, days_threshold=30):
             readme_content=readme_content,
             username=username,
             current_date=None,
-            assets_save_folder=config.assets_save_folder,
-            assets_read_folder=config.assets_read_folder,
+            assets_save_folder=config.get('assets_save_folder'),
+            assets_read_folder=config.get('assets_read_folder'),
         )
         if title is None:
             title = repo_name
@@ -598,8 +598,8 @@ async def create_new_markdown_files(repos, username,config, days_threshold=1):
             readme_content=readme_content,
             username=username,
             current_date=None,
-            assets_save_folder=config.assets_save_folder,
-            assets_read_folder=config.assets_read_folder,
+            assets_save_folder=config.get('assets_save_folder'),
+            assets_read_folder=config.get('assets_read_folder'),
         )
         if title is None:
             title = repo_name
