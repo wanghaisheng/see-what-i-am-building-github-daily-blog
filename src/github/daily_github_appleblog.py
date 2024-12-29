@@ -330,7 +330,7 @@ def save_image_from_url(image_url, local_file_path):
         print(f"Failed to retrieve image. Status code: {response.status_code}")
 
 
-def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
+def call_image_endpoint(api_url, api_key, prompt, config,size="1024x1024", n=1):
     """
     Calls the Cloudflare Worker image generation endpoint.
 
@@ -365,7 +365,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
                     url = data["choices"][0]["message"]["url"]
                     print("create image", url)
                     image_name = url.split("/")[-1] + ".png"
-                    assets_save_folder = os.path.join(project_root, assets_save_folder)
+                    assets_save_folder = os.path.join(project_root, config.assets_save_folder)
 
                     local_file_path = os.path.join(
                         assets_save_folder, image_name
@@ -373,7 +373,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
                     print('start to save cover image',local_file_path)
                     save_image_from_url(url, local_file_path)
 
-                    image_url = domain + assets_read_folder + image_name
+                    image_url = config.assets_read_folder + image_name
 
                 except Exception as e:
                     print('save cover image error',e)
@@ -383,7 +383,6 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
         print("error image creation", e)
     if image_url is None:
         image_name = random.choice(defaultimages)
-        # image_url = domain + assets_read_folder + image_name
         image_url=image_name
         print('use default image from midjourney')
     return  image_url
@@ -481,7 +480,7 @@ def build_frontmatter_appleblog(
     return yaml.dump(frontmatter, default_flow_style=False)
 
 
-def create_all_markdown_files(repos, username, chat, days_threshold=30):
+def create_all_markdown_files(repos, username, chat,config, days_threshold=30):
     date_today = datetime.date.today().strftime("%Y-%m-%d")
     pubdate = datetime.datetime.now().strftime("%Y%m%d %H%M%S")
 
@@ -506,8 +505,8 @@ def create_all_markdown_files(repos, username, chat, days_threshold=30):
             readme_content=readme_content,
             username=username,
             current_date=None,
-            assets_save_folder=assets_save_folder,
-            assets_read_folder=assets_read_folder,
+            assets_save_folder=config.assets_save_folder,
+            assets_read_folder=config.assets_read_folder,
         )
         if title is None:
             title = repo_name
@@ -517,6 +516,7 @@ def create_all_markdown_files(repos, username, chat, days_threshold=30):
             api_url=IMAGE_API_URL,
             api_key=IMAGE_API_KEY,
             prompt=f"A creative image representing the repository: {readme_content}",
+            config
         )
 
         # Extract keywords and tags using Chat class
@@ -566,7 +566,7 @@ def create_all_markdown_files(repos, username, chat, days_threshold=30):
 
 
 # 你想多久运行一次程序就设置时间间隔为多久 一个月 一周 一天
-async def create_new_markdown_files(repos, username, days_threshold=1):
+async def create_new_markdown_files(repos, username,config, days_threshold=1):
     date_today = datetime.date.today().strftime("%Y-%m-%d")
     pubdate = datetime.datetime.now().strftime("%Y%m%d %H%M%S")
 
@@ -597,8 +597,8 @@ async def create_new_markdown_files(repos, username, days_threshold=1):
             readme_content=readme_content,
             username=username,
             current_date=None,
-            assets_save_folder=assets_save_folder,
-            assets_read_folder=assets_read_folder,
+            assets_save_folder=config.assets_save_folder,
+            assets_read_folder=config.assets_read_folder,
         )
         if title is None:
             title = repo_name
@@ -607,7 +607,8 @@ async def create_new_markdown_files(repos, username, days_threshold=1):
         cover_image_url = call_image_endpoint(
             api_url=IMAGE_API_URL,
             api_key=IMAGE_API_KEY,
-            prompt=f"A creative image representing the repository: {readme_content}",
+            prompt=f"A creative image thumbnail representing: {readme_content}",
+            config
         )
 
         # Extract keywords and tags using Chat class
@@ -661,7 +662,7 @@ async def main():
             return
         print("create md for repos")
         await create_new_markdown_files(
-            repos, username, days_threshold=days_threshold
+            repos, username, config,days_threshold=days_threshold
         )
     except Exception as e:
         print(f"Exception in main: {e}")
