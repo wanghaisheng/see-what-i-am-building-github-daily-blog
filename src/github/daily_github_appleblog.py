@@ -32,6 +32,7 @@ def load_config():
 
 config = load_config()
 theme = config.get("blogtheme", "appleblog")
+domain = config.get("domain", "")
 
 days_threshold = config.get("days_threshold", 1)
 
@@ -41,7 +42,6 @@ assets_save_folder = os.path.join(project_root, assets_save_folder)
 assets_read_folder = config.get("assets_read_folder", "")
 assets_read_folder = domain + assets_read_folder 
 
-domain = config.get("domain", "")
 
 
 api_url = config.get(
