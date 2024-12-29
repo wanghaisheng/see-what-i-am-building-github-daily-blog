@@ -372,8 +372,8 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
 
                     image_url = domain + assets_read_folder + image_name
 
-                except:
-                    image_name = random.choice(defaultimages)
+                except Exception as e:
+                    print('save cover image error',e)
         else:
             print("error:\n", response.status_code, "message:\n", response.text)
     except Exception as e:
@@ -382,6 +382,7 @@ def call_image_endpoint(api_url, api_key, prompt, size="1024x1024", n=1):
         image_name = random.choice(defaultimages)
         # image_url = domain + assets_read_folder + image_name
         image_url=image_name
+    return  image_url
 
 
 def generate_blog(
