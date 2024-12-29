@@ -39,6 +39,8 @@ assets_save_folder = config.get("assets_save_folder", "")
 assets_save_folder = os.path.join(project_root, assets_save_folder)
 
 assets_read_folder = config.get("assets_read_folder", "")
+assets_read_folder = domain + assets_read_folder 
+
 domain = config.get("domain", "")
 
 
