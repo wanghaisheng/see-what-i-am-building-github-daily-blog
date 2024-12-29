@@ -516,7 +516,7 @@ def create_all_markdown_files(repos, username, chat,config, days_threshold=30):
             api_url=IMAGE_API_URL,
             api_key=IMAGE_API_KEY,
             prompt=f"A creative image representing the repository: {readme_content}",
-            config
+            config=config
         )
 
         # Extract keywords and tags using Chat class
@@ -608,7 +608,7 @@ async def create_new_markdown_files(repos, username,config, days_threshold=1):
             api_url=IMAGE_API_URL,
             api_key=IMAGE_API_KEY,
             prompt=f"A creative image thumbnail representing: {readme_content}",
-            config
+            config=config
         )
 
         # Extract keywords and tags using Chat class
