@@ -50,6 +50,7 @@ api_url = config.get(
     "https://heisenberg-duckduckgo-66.deno.dev/v1/chat/completions",
 )
 api_model = config.get("api_model", "gpt-4o-mini")
+daily_limit = config.get("daily_limit", "20")
 
 api_key = os.getenv("OPENAI_API_KEY", "your_self_openai_api_access_token_here")
 
@@ -658,6 +659,8 @@ async def main():
         username = config.get("username", "default_username")
         print("start to detect all repos")
         repos = get_repositories(username)
+        if daily_limit:
+            repos=repos[:int(daily_limit)]        
         if not repos:
             print("No repositories found or failed to fetch repositories.")
             return
