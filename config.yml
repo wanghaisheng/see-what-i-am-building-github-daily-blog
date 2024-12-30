@@ -21,7 +21,7 @@ assets_save_folder: "themes/appleblog/public/assets"
 # diff theme serve static files different ,change it and adapt code if need
 assets_read_folder: "/assets/"
 
-daily_limit: 200
+daily_limit: 1000
 
 
 
