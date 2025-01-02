@@ -1,0 +1,18 @@
+# https://github.com/marketplace/actions/broken-links-checker
+
+name: Broken-links Checker
+
+# on: [push]
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Link Checker
+        uses: merlos/broken-links@0.2.2
+        with:
+          url: 'http://example.com'
+          only-errors: 'true'
