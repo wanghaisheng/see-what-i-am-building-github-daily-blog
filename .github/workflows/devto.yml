@@ -17,6 +17,7 @@ on:
     paths: themes/appleblog/src/pages/posts
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   publish:
