@@ -2,31 +2,22 @@
 author: Heisenberg
 cover:
   alt: cover
-  square: https://daily.borninsea.com/assets/image_1735531466434_xcp5or.png
-  url: https://daily.borninsea.com/assets/image_1735531466434_xcp5or.png
-description: "\U0001F3F7\uFE0F Free, open-source barcode generator  \u2022 Multiple\
-  \ barcode formats support \u2022 Real-time & bulk generation \u2022 Built with Next.js,\
-  \ shadcn/ui, and react-intl \u2022 Mobile-friendly design  Try it now at barcode-maker.com!"
+  square: 'https://daily.borninsea.com/assets/image_1735531466434_xcp5or.png'
+  url: 'https://daily.borninsea.com/assets/image_1735531466434_xcp5or.png'
+description: "\U0001F3F7️ Free, open-source barcode generator  • Multiple barcode formats support • Real-time & bulk generation • Built with Next.js, shadcn/ui, and react-intl • Mobile-friendly design  Try it now at barcode-maker.com!"
 featured: true
-keywords: barcode generator,  free,  open-source,  multiple barcode formats,  real-time
-  generation,  bulk generation,  Next.js,  shadcn/ui,  react-intl,  mobile-friendly,  Code
-  128,  EAN/UPC,  Code 39,  ITF,  MSI Plessey,  Pharmacode,  Codabar,  customizable
-  styles,  download options,  PNG,  JPG,  GIF,  SVG,  Node.js,  npm,  installation,  usage,  contributing,  MIT
-  License,  JsBarcode,  acknowledgments,  Leon Zeng,  barcode-maker.com
+keywords: 'barcode generator,  free,  open-source,  multiple barcode formats,  real-time generation,  bulk generation,  Next.js,  shadcn/ui,  react-intl,  mobile-friendly,  Code 128,  EAN/UPC,  Code 39,  ITF,  MSI Plessey,  Pharmacode,  Codabar,  customizable styles,  download options,  PNG,  JPG,  GIF,  SVG,  Node.js,  npm,  installation,  usage,  contributing,  MIT License,  JsBarcode,  acknowledgments,  Leon Zeng,  barcode-maker.com'
 layout: ../../layouts/MarkdownPost.astro
 meta:
-- content: Heisenberg
-  name: author
-- content: barcode generator,  free,  open-source,  multiple barcode formats,  real-time
-    generation,  bulk generation,  Next.js,  shadcn/ui,  react-intl,  mobile-friendly,  Code
-    128,  EAN/UPC,  Code 39,  ITF,  MSI Plessey,  Pharmacode,  Codabar,  customizable
-    styles,  download options,  PNG,  JPG,  GIF,  SVG,  Node.js,  npm,  installation,  usage,  contributing,  MIT
-    License,  JsBarcode,  acknowledgments,  Leon Zeng,  barcode-maker.com
-  name: keywords
+  - content: Heisenberg
+    name: author
+  - content: 'barcode generator,  free,  open-source,  multiple barcode formats,  real-time generation,  bulk generation,  Next.js,  shadcn/ui,  react-intl,  mobile-friendly,  Code 128,  EAN/UPC,  Code 39,  ITF,  MSI Plessey,  Pharmacode,  Codabar,  customizable styles,  download options,  PNG,  JPG,  GIF,  SVG,  Node.js,  npm,  installation,  usage,  contributing,  MIT License,  JsBarcode,  acknowledgments,  Leon Zeng,  barcode-maker.com'
+    name: keywords
 pubDate: '2024-12-30'
 tags: []
 theme: light
 title: 'From Idea to Reality: Building a Barcode Generator with Next.js'
+id: 2214906
 ---
 
 
